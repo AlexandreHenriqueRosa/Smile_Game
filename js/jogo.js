@@ -36,32 +36,19 @@ function atualizaPlacar(acertos, tentativas) {
   document.getElementById("resposta").innerHTML = "Placar - Acertos: " + acertos + " Tentativas: " + tentativas + " Desempenho: " + Math.round(desempenho) + "%";
 }
 
-function acertou(obj) {
-  console.log('dddddd', obj)
-  obj.className = "acertou";
+function resultado(obj, classs, src) {
+  obj.className = classs;
   const img = new Image(100);
   img.id = "imagem";
-  img.src = './gigachad/machoAlfa.jpg';
-  obj.appendChild(img);
-}
-
-function errou(obj) {
-  console.log('dddddd', obj)
-  obj.className = "errou";
-  const img = new Image(100);
-  img.id = "imagem";
-  img.src = './amalgamadecarne/betinha.jpg';
+  img.src = src;
   img.style.height = '85%'
   obj.appendChild(img);
 }
 
-function acertotudo() {
-  document.getElementById('acertoutudo').className = ''
+function resultadoGeral(result) {
+  document.getElementById(result).className = ''
 }
 
-function erroutudo() {
-  document.getElementById('erroutudo').className = ''
-}
 
 function verifica(obj) {
   if (jogar) {
@@ -74,19 +61,19 @@ function verifica(obj) {
     }
     let sorteado = Math.floor(Math.random() * cartas);
     if (obj.id == sorteado) {
-      acertou(obj);
+      resultado(obj, "acertou", './gigachad/machoAlfa.jpg');
       acertos++;
     } else {
       const objSorteado = document.getElementById(sorteado);
-      acertou(objSorteado);
-      errou(obj)
+      resultado(objSorteado, "acertou", './gigachad/machoAlfa.jpg');
+      resultado(obj, "errou", './amalgamadecarne/betinha.jpg')
     }
     atualizaPlacar(acertos, tentativas);
 
     if (acertos == cartas) {
-      acertotudo()
+      resultadoGeral('acertoutudo')
     } else if (acertos == 0 && tentativas == cartas) {
-      erroutudo()
+      resultadoGeral('erroutudo')
     }
 
   } else {
